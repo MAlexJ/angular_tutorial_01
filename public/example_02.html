@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myExampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Контроллеры AngularJS</title>
+</head>
+<body>
+<div ng-controller="phoneController">
+<p>Название: {{phone.name}}</p>
+<p>Цена: {{phone.price}} $</p>
+<p>Производитель: {{phone.company.name}}</p>
+</div>
+
+<!-- lib -->
+<script type="text/javascript" src="js/lib/angular.min.js"></script>
+<!-- Module -->
+<script type="text/javascript" src="js/example_02.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="js/controllers/controller_02.js"></script>
+</body>
+</html>
