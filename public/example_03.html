@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Контроллеры без использования $scope</title>
+</head>
+<body>
+<div class="container">
+    <div class="page-header" ng-controller="phoneCat as phone">
+
+        {{phone.message}}
+        <br>
+        {{phone.text}}
+
+    </div>
+</div>
+<!-- lib -->
+<script type="text/javascript" src="js/lib/angular.min.js"></script>
+<!-- Module -->
+<script type="text/javascript" src="js/example_03.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="js/controllers/controller_03.js"></script>
+</body>
+</html>
