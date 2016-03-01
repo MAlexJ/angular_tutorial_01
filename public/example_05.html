@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>$rootScope Example 2</title>
+</head>
+<body>
+Message: {{ message }} -> root scope
+<div ng-controller="myController">
+    Message: {{ message }} <b> -> controller scope</b>
+</div>
+Message: {{ message }} -> root scope
+
+<!-- AngularJS -->
+<script type="text/javascript" src="js/lib/angular.min.js"></script>
+
+<!-- Module -->
+<script type="text/javascript" src="js/example_05.js"></script>
+
+<!-- Controller -->
+<script type="text/javascript" src="js/controllers/controller_05.js"></script>
+</body>
+</html>
