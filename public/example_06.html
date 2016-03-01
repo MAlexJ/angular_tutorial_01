@@ -6,9 +6,26 @@
 </head>
 <body>
 
+<div ng-controller="myController">
 
+    <ul>
+        <li ng-repeat="phone in phones">
+            name: {{phone.name}} <br>
+            year: {{phone.year}} <br>
+            price: {{phone.price}} <br>
+            country: {{phone.company.country}} <br>
+            <br>
+        </li>
+    </ul>
+</div>
+
+<!-- AngularJS -->
 <script src="js/lib/angular.min.js" type="text/javascript"></script>
+
+<!-- Module -->
 <script src="js/example_06.js" type="text/javascript"></script>
+
+<!-- Controller -->
 <script src="js/controllers/controller_06.js" type="text/javascript"></script>
 
 </body>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Example 2. ng-repeat </title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row col-md-6 help-block">
+        <h3>Встроенные переменные</h3>
+        <p>
+            При обходе массивов мы можем использовать ряд встроенных переменных AngularJS:
+        </p>
+
+        <ul>
+            <li><b> $index: </b> возвращает индекс элемента в массиве</li>
+            <li><b> $first: </b> возвращает true, если элемент является первым в массиве</li>
+            <li><b> $last: </b> возвращает true, если элемент является последним в массиве</li>
+            <li><b> $middle: </b> возвращает true, если элемент не является ни первым, ни последним в массиве</li>
+            <li><b> $even: </b> возвращает true, если элемент является четным</li>
+            <li><b>$odd: </b> возвращает true, если элемент является нечетным</li>
+        </ul>
+
+    </div>
+</div>
+<div class="container" ng-controller="myController" ng-class="$odd ? 'odd' : 'even'">
+    <div class="row col-md-6">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>First item</th>
+                <th>Last item</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="phone in phones">
+                <td>{{ $index +1}}</td>
+                <td>{{phone.name}}</td>
+                <td>{{phone.price}}</td>
+                <td>{{$first}}</td>
+                <td>{{$last}}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+<!-- 1. AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+
+<!-- 2. Module  -->
+<script src="js/example_07.js" type="text/javascript"></script>
+
+<!-- 3.Controller -->
+<script src="js/controllers/controller_07.js" type="text/javascript"></script>
+
+</body>
+
+</html>
+
+
