@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Привязка данных в AngularJS. ng-bind-template</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3>ng-bind-template</h3>
+    <br>
+    Директива ng-bind-template позволяет задать шаблон привязки с использованием выражений. <br>
+    Например:
+    <pre>&lt;div ng-controller=&quot;phoneController&quot;&gt;<br/>&lt;p ng-bind-template=&quot; phones[0].name: phones[0].price $&quot;&gt;&lt;/p&gt;<br/>&lt;/div&gt;</pre>
+</div>
+
+<div class="container" ng-controller="myController">
+    <p ng-bind-template="{{phones[0].name}}: {{phones[0].price}} $"></p>
+</div>
+
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- AngularJS -->
+<script src="js/model_09.js" type="text/javascript"></script>
+<!-- AngularJS -->
+<script src="js/controllers/controller_09.js" type="text/javascript"></script>
+</body>
+</html>
