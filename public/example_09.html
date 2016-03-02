@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Привязка данных в AngularJS. ng-bind</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3>ng-bind</h3>
+    <p>Директива ng-bind используется для создания односторонней привязки одного элемента html к какому-нибудь
+        выражению.<br>
+        И если данное выражение изменится, то вместе с ним обновится и содержимое связанного элемента html.<br>
+        Например, в прошлом разделе мы использовали массив моделей phone.<br>
+    </p>
+    <b>
+        <div ng-controller="myController">
+            <p>Количество элементов: <span ng-bind="phones.length"></span></p>
+            <p>Первый элемент: <span ng-bind="phones[0].name"></span></p>
+        </div>
+    </b>
+    <div>
+        Здесь идет привязка к длине массива phones и к первому его элементу. <br>
+        Если мы добавим в массив новый элемент или изменим название первого элемета,<br>
+        то соответственно изменится и текст в привязанных элементах span.<br>
+    </div>
+    <div>
+        <pre>&lt;div ng-controller=&quot;phoneController&quot;&gt;<br/> &lt;p&gt;Количество элементов: &lt;span ng-bind=&quot;phones.length&quot;&gt;&lt;/span&gt;&lt;/p&gt;<br/> &lt;p&gt;Первый элемент: &lt;span ng-bind=&quot;phones[0].name&quot;&gt;&lt;/span&gt;&lt;/p&gt;<br/>&lt;/div&gt;</pre>
+
+    </div>
+</div>
+
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/model_08.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_09.js" type="text/javascript"></script>
+</body>
+</html>
