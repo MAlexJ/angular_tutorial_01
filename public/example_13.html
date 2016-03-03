@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. ng-include</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3>ng-include</h3>
+    <p>
+        Директива, которая позволяет управлять разметкой html.<br><br>
+        Директива <b>ng-include</b> получает с веб-сервера фрагмент кода HTML, <br>
+        обрабатывает его и добавляет на html-страницу. <br><br>
+    </p>
+    <p> Подобные фрагменты называются <b>частичными представлениями</b>.</p>
+    <h5><b>index.html</b></h5>
+    <pre> &lt;div ng-controller=&quot;phoneController&quot;&gt;<br/>    &lt;ng-include src=&quot;&#39;phonesList.html&#39;&quot;&gt;&lt;/ng-include&gt;<br/>&lt;/div&gt;</pre>
+    <h5><b>phoneList.html</b></h5>
+    <pre>ul&gt;<br/>&lt;li ng-repeat=&quot;phone in phones&quot;&gt;<br/>&lt;b&gt;{{phone.name}}&lt;/b&gt;<br/>&lt;p&gt;Цена: {{phone.price}} $&lt;/p&gt;<br/>&lt;p&gt;Производитель: {{phone.company.name}}&lt;/p&gt;<br/>&lt;/li&gt;<br/>&lt;/ul&gt;</pre>
+</div>
+<div class="container" ng-controller="myController">
+    <ng-include src="'temp/phonesList.html'"></ng-include>
+</div>
+
+<div class="container">
+    <h3> Директива <b> ng-include </b> может принимать три параметра: </h3>
+
+    <ul>
+        <li><b>src: </b> url загружаемого файла</li>
+        <li><b> onload:</b> определяет выражение, которое рендерится при загрузке файла</li>
+        <li><b> autoscroll: </b>определяет, допускается ли прокрутка во время загрузки файла</li>
+    </ul>
+    <br><br>
+
+    <br><br>
+
+    <br><br>
+
+</div>
+
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- module -->
+<script src="js/module_13.js" type="text/javascript"></script>
+<!-- controller -->
+<script src="js/controllers/controller_13.js" type="text/javascript"></script>
+</body>
+</html>
