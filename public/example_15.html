@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Директива ng-switch</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3> ng-switch </h3>
+    Директива <b>ng-include</b> позволяет подгружать нужные файлы,<br>
+    однако иногда рациональнее будет определить фрагменты кода html сразу же на главной странице и отображать их в зависимости от условий. <br>
+    Для этого предназначена директива ng-switch.<br>
+    <br>
+    Чтобы применить данную директиву, изменим главную страницу следующим образом:<br>
+    <br>
+</div>
+
+<div class="container" ng-controller="myController">
+
+    <div ng-repeat="button in modes">
+        <label>
+            <input type="radio" ng-model="data.mode" value="{{button.value}}"/>
+            {{button.label}}
+        </label>
+    </div>
+
+    <div ng-switch on="data.mode">
+        <div ng-switch-when="Tablets">
+            <ul>
+                <li ng-repeat="tablet in tablets">
+                    <b>{{tablet.name}}</b>
+                    <p>Цена: {{tablet.price}} $</p>
+                    <p>Производитель: {{tablet.company}}</p>
+                </li>
+            </ul>
+        </div>
+        <div ng-switch-when="Phones">
+            <ul>
+                <li ng-repeat="phone in phones">
+                    <b>{{phone.name}}</b>
+                    <p>Цена: {{phone.price}} $</p>
+                    <p>Производитель: {{phone.company}}</p>
+                </li>
+            </ul>
+        </div>
+        <div ng-switch-default>
+            <b>Выберите товары для просмотра</b>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    Использование директивы <b> ng-switch </b> напоминает конструкцию <b> switch..case </b>, <br>
+    которая есть во многих языках программирования. Директива используется вместе с атрибутом <b>on</b>, <br>
+    который указывает на выражение. В данном случае выражением является значение объекта data.mode.<br>
+    <br>
+    Для оценки значения data.mode используется директива <b> ng-switch-when:</b><br>
+    <pre>&lt;div ng-switch-when=&quot;Tablets&quot;&gt;<br/>    &lt;!--код, если data.mode Tablets --&gt;<br/>&lt;/div&gt;<br/>&lt;div ng-switch-when=&quot;Phones&quot;&gt;<br/>    &lt;!--код, если data.mode Phones --&gt;<br/>&lt;/div&gt;</pre>
+
+</div>
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_14.js" type="text/javascript"></script>
+<!-- Controllers -->
+<script src="js/controllers/controller_14.js" type="text/javascript"></script>
+</body>
+</html>
