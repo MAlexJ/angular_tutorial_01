@@ -138,8 +138,8 @@
     </div>
 </div>
 
-<div class="container" ng-controller="questionController">
-    <h4 class="tit">Фильтр filter</h4>
+<div class="container">
+    <h4 class="tit">Фильтр filter. Example 1 </h4>
     <p>Фильтр filter задает параметры и значения фильтрации.
         Посмотрим на примере. <br>
         Возьмем проект, сделанный выше, и добавим в него привязку
@@ -151,20 +151,38 @@
         будут отображаться даты всех его ответов.
         Вывод в элемент <b>select</b> можно заменить выводом в div,
         ul или другой элемент.</p>
-    <div>
-        <select >
-            <option ng-repeat="quest in question">
-                {{quest.author}}
-            </option>
+
+    <div ng-controller="questionController">
+        <select ng-model="answer.author">
+            <option value="" disabled> Выбрать</option>
+            <option ng-repeat="answer in question.answers">{{answer.author}}</option>
         </select>
         <select>
-            <option ng-repeat="selected_answer in question | filter: quest">
-                {{selected_answer.date}}
-            </option>
+            <option ng-repeat="selected_answer in question.answers | filter:answer">{{selected_answer.date}}</option>
         </select>
     </div>
+    <br>
 </div>
-
+<div class="container" ng-controller="questionController">
+    <h4 class="tit">Фильтр filter. Example 2</h4>
+    <p>Рассмотрим еще пример с фильтром. <br>
+        Допустим, нам надо через специальное поле ввода динамически
+        получать всех ответчиков, которые соответствуют
+        определенному критерию:</p>
+    <pre>&lt;div  ng-controller=&quot;QuestionController&quot;&gt;<br/>&lt;div class=&quot;quest&quot;&gt;<br/>&lt;h3&gt;{{question.text}}&lt;/h3&gt;<br/>&lt;p&gt;{{question.author}} &lt;/p&gt; &lt;p&gt;&lt;i&gt;{{question.date}}&lt;/i&gt;&lt;/p&gt;<br/>&lt;/div&gt;<br/>&lt;p&gt;Введите ответчика: &lt;input type=&quot;text&quot; ng-model=&quot;member&quot;&gt;&lt;/p&gt;<br/>&lt;h3&gt;Ответы&lt;/h3&gt;<br/>&lt;div class=&quot;answers&quot;&gt;<br/>&lt;div ng-repeat=&quot;a in question.answers | filter:{author:member}&quot; class=&quot;answer&quot; &gt;<br/>&lt;div class=&quot;vote&quot;&gt;<br/>    &lt;a class=&quot;vote-up&quot; ng-click=&quot;voteUp(a)&quot;&gt;&lt;/a&gt;<br/>    &lt;span class=&quot;rate&quot;&gt;{{a.rate}}&lt;/span&gt;<br/>    &lt;a class=&quot;vote-down&quot; ng-click=&quot;voteDown(a)&quot;&gt;&lt;/a&gt;<br/>&lt;/div&gt;<br/>&lt;b&gt;{{a.text}}&lt;/b&gt;<br/>&lt;p&gt;{{a.author}}&lt;/p&gt;<br/>&lt;p&gt;&lt;i&gt;{{a.date}}&lt;/i&gt;&lt;/p&gt;<br/>&lt;/div&gt;<br/>&lt;/div&gt;<br/>&lt;/div&gt;</pre>
+    <br>
+    <p>Введите ответчика: <input type="text" ng-model="member"></p>
+    <h4>Ответы</h4>
+    <div ng-repeat="a in question.answers | filter:{author:member}">
+        <b>{{a.text}}</b>
+        <p>{{a.author}}</p>
+        <p><i>{{a.date}}</i></p>
+    </div>
+    <br>
+</div>
+<footer class="modal-footer">
+    <h9>footer</h9>
+</footer>
 
 <!-- AngularJS -->
 <script src="js/lib/angular.min.js" type="text/javascript"></script>
