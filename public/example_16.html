@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Привязка данных в AngularJS. ng-bind</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="myController">
+<div class="container">
+    <h3>Директивы стилизации и управления элементами</h3>
+    <p>В особую группу директив можно выделить директивы, которые позволяют стилизовать
+        элементы или управлять ими:</p>
+    <ol>
+        <li><b>ng-style:</b> устанавливает у элемента стили css</li>
+        <li><b>ng-class:</b> задает элементу определенный класс</li>
+        <li><b>ng-class-even:</b> устанавливает класс для четных элементов</li>
+        <li><b>ng-class-odd:</b> устанавливает класс для нечетных элементов</li>
+        <li><b>ng-hide:</b> скрывает элемент</li>
+        <li><b>ng-show:</b> делает элемент видимым</li>
+        <li><b>ng-if:</b> задает для элемента некоторое условие</li>
+    </ol>
+</div>
+<div class="container">
+    <h3>ng-class и ng-style</h3>
+    <p>Данные директивы служат стилизации элементов. Объявим в контроллере два объекта:</p>
+    <pre>$scope.somestyle={background: &#39;#eee&#39;, color:&#39;#333&#39;};<br/>
+        $scope.someclass=&quot;myclass&quot;;</pre>
+    <p>myclass в данном случае - это название класса, который содержит определение в файле стилей css.
+        И на страничке
+        будет такая разметка:</p>
+    <pre>&lt;div ng-controller=&quot;phonesController&quot;&gt;<br/>
+        &lt;div ng-style=&quot;somestyle&quot;&gt;Директива ng-style&lt;/div&gt;
+        <br/>&lt;div ng-class=&quot;someclass&quot;&gt;Директива ng-class&lt;/div&gt;
+        <br/>&lt;/div&gt;</pre>
+
+    <div>
+        <div ng-style="somestyle">Директива ng-style</div>
+        <div ng-class="someclass">Директива ng-class</div>
+    </div>
+
+</div>
+
+<div class="container">
+    <h3>ng-show и ng-hide</h3>
+    <p>Директивы ngshow и nghide служат для отображения и скрытия элемента соответственно.
+        Например, создадим в контроллере еще один объект для хранения булевых значений:</p>
+    <pre>$scope.data={visible : false};</pre>
+    <p>В разметке страницы создадим два параграфа и флажок,
+        переключая который, мы будем управлять видимостью параграфов:</p>
+    <pre>&lt;div ng-controller=&quot;phoneController&quot;&gt;
+        <br/>&lt;p ng-show=&quot;data.visible&quot;&gt;Первый блок&lt;/p&gt;
+        <br/>&lt;p ng-hide=&quot;data.visible&quot;&gt;Второй блок&lt;/p&gt;
+        <br/>&lt;input type=&quot;checkbox&quot; ng-model=&quot;data.visible&quot;&gt;Открыть/скрыть
+        <br/>&lt;/div&gt;</pre>
+    <br>
+    <div ng-class="someclass">
+        <p ng-show="data.visible">First fragment</p>
+        <p ng-hide="data.visible">Second fragment</p>
+        <input type="checkbox" ng-model="data.visible"/> Show/Hide
+    </div>
+    <br>
+    <p style=" color: #5e5e5e; font-size: 16px">Первоначально у нас объект data.visible равен false, поэтому первый
+        блок будет не виден. Изменяя значение флажка, который привязан к объекту visible опять же через директиву
+        ng-model, мы также изменяем значение data.visible, что изменяет видимость параграфов.</p>
+</div>
+<div class="container">
+    <h3>ng-if</h3>
+    <p>Действие <b>ng-if</b> во многом похоже на действие <b>ng-show/ng-hide</b>. Если <b>ng-if</b> принимает значение
+        false, то элемент с
+        директивой удаляется из структуры DOM, а при значении true, наоборот, добавляется:</p>
+    <pre>&lt;div ng-controller=&quot;phoneController&quot;&gt;
+        <br/>&lt;input type=&quot;checkbox&quot; ng-model=&quot;data.visible&quot;&gt;Открыть/скрыть
+        <br/>&lt;p ng-if=&quot;data.visible&quot;&gt;Первый блок&lt;/p&gt;
+        <br/>&lt;p ng-if=&quot;!data.visible&quot;&gt;Второй блок&lt;/p&gt;<br/>&lt;/div&gt;</pre>
+    <br>
+    <div>
+        <input type="checkbox" ng-model="data.visible">
+        <p ng-if="data.visible">Первый блок</p>
+        <p ng-if="!data.visible">Второй блок</p>
+    </div>
+</div>
+
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_14.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_15.js" type="text/javascript"></script>
+</body>
+</html>
