@@ -1,16 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
     <title>Глава 02. Привязка данных в AngularJS. ng-bind</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="container">
-
-
+    <h3 class="tit">Cоздание собственных фильтров</h3>
+    <p>Возможно, кому-то набор встроенных фильтров покажется ограниченным.<br>
+        Но разработчики фреймворка предоставляют нам возможность создавать
+        собственные фильтры.</p>
 </div>
-
+<div class="container">
+    <h4 class="tit">Определение фильтра</h4>
+    <p>Возможно, кому-то набор встроенных фильтров покажется ограниченным.<br>
+        Но разработчики фреймворка предоставляют нам возможность создавать
+        собственные фильтры.</p>
+    <p>Фильтр по сути представляет функцию,
+        которая выполняется над переданным значением.
+        Ее типизированное представление выглядит следующим образом:</p>
+    <pre>module.filter(&#39;filter_name&#39;, function(){<br/>     return function(param){<br/>        // некоторые действия над param<br/>        return some_value;<br/>    }<br/>})</pre>
+    <p>В этой конструкции <b>module</b> - название модуля приложения. <br>
+        <b>filter_name</b> - произвольное название функции фильтра. <br>
+        Параметр возвращаемой функции - <b>param</b> - параметр,
+        над которым будут производиться действия.
+        И <b>some_value</b> - некоторое возвращаемое значение.
+        В качестве значения может выступать текст самого
+        параметра или какое-то иное значение. Посмотрим на примере.
+        <br><br>
+        Для начала создадим модуль в отдельном файле - назовем его <b>app.js</b>
+        и положим в папку js:</p>
+    <pre>var questApp = angular.module('questApp', []);</pre>
+    <p>Затем изменим контроллер:</p>
+    <pre>questApp.controller(&#39;QuestionController&#39;, <br/>    function QuestionController($scope){<br/>     <br/>        $scope.question={<br/>            text: &#39;Какой js-фреймворк лучше использовать?&#39;,<br/>            author: &#39;Иван Иванов&#39;,<br/>            date: &#39;20/10/2013&#39;,<br/>            answers: <br/>            [{<br/>                text: &#39;AngularJS!&#39;,<br/>                author: &#39;Вова Сидоров&#39;,<br/>                date: &#39;20/10/2013&#39;,<br/>                rate:2<br/>            },{<br/>                text: &#39;AngularJS лучше всех&#39;,<br/>                author: &#39;Олег Кузнецов&#39;,<br/>                date: &#39;21/10/2013&#39;,<br/>                rate:3<br/>            },{<br/>                text: &#39;фигасе квестшен&#39;,<br/>                author: &#39;Неизвестный&#39;,<br/>                date: &#39;22/10/2013&#39;,<br/>                rate:0<br/>            }]<br/>        },<br/>     <br/>        $scope.voteUp = function (answer){<br/>            answer.rate++;<br/>        };<br/>        $scope.voteDown = function (answer){<br/>            answer.rate--;<br/>        };<br/>    }<br/>)</pre>
+    <p>Теперь создадим фильтр.
+        Его задачей будет фильтрация сообщений,
+        и если сообщение содержит некорректное выражение,
+        то его заменяем звездочками.
+        Для этого создадим отдельный файл <b>filter.js</b> в каталоге
+        приложения js со следующим содержанием:</p>
+    <pre>questApp.filter(&#39;formatText&#39;, function(){<br/>    return function(text){<br/>        if(text.indexOf(&quot;фигасе&quot;)!==-1){<br/>            return &quot;***&quot;;<br/>        }<br/>        else{<br/>            return text;<br/>        }<br/>    }<br/>})</pre>
+    <p>И теперь определим html-страницу, где будет происходить все это безобразие:</p>
+    <br>
+</div>
+<div class="container" ng-controller="QuestionController">
+    <h5 class="tit">Example</h5>
+    <div class="quest">
+        <h3>{{question.text}}</h3>
+        <p>{{question.author}} </p>
+        <p><i>{{question.date}}</i></p>
+    </div>
+    <h3>Ответы</h3>
+    <div class="answers">
+        <div ng-repeat="answer in question.answers" class="answer">
+            <div class="vote">
+                <a class="vote-up" ng-click="voteUp(answer)"></a>
+                <span class="rate">{{answer.rate}}</span>
+                <a class="vote-down" ng-click="voteDown(answer)"></a>
+            </div>
+            <b>{{answer.text | formatText}}</b>
+            <p>{{answer.author}}</p>
+            <p><i>{{answer.date}}</i></p>
+        </div>
+    </div>
+</div>
+<footer class="modal-footer">
+    <label> footer</label>
+</footer>
 
 <!-- AngularJS -->
 <script src="js/lib/angular.min.js" type="text/javascript"></script>
@@ -18,5 +76,7 @@
 <script src="js/module_20.js" type="text/javascript"></script>
 <!-- Controller -->
 <script src="js/controllers/controller_20.js" type="text/javascript"></script>
+<!-- Filter -->
+<script src="js/filter/filter.js" type="text/javascript"></script>
 </body>
 </html>

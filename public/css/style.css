@@ -46,3 +46,9 @@ a {
   background: url("../img/sprite.png") no-repeat 0px -20px;
   overflow: hidden;
 }
+
+
+.tit {
+  color: #31b0d5;
+  font-style: italic;
+}
