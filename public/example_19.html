@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Фильтры</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .tit {
+            color: #31b0d5;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="tit">Фильтры</h3>
+    <p>Фильтры позволяют провести некоторую предобработку перед выводом данных на страницу,
+        например, отсортировать или как-то изменить набор данных.
+        <br>
+        <br>
+        Общий способ использования фильтров: </p>
+    <pre> expression | filter </pre>
+</div>
+<div class="container" ng-controller="textController">
+    <h4 class="tit"> Изменение регистра</h4>
+    <p>Используя фильтры <b>lowercase</b> и <b>uppercase</b>, мы можем приводить
+        содержимое к нижнему и верхнему регистру соответственно. <br>
+        Например, </p>
+    <pre>&lt;h3&gt;{{question.text | lowercase}}&lt;/h3&gt;</pre>
+    <div class="row col-xs-3">
+        <h5><i>Example 1</i></h5>
+        <b>In:</b>
+        <p>text: House</p>
+        <b>Out:</b>
+        <p>{{question.text1 | lowercase}}</p>
+    </div>
+    <div class="row col-xs-3 col-xs-offset-2">
+        <h5><i>Example 2</i></h5>
+        <b>In:</b>
+        <p>text: House</p>
+        <b>Out:</b>
+        <p>{{question.text1 | uppercase}}</p>
+    </div>
+</div>
+<div class="container">
+    <h4 class="tit">Форматирование чисел</h4>
+    <p>Фильтр number позволяет форматировать числа. <br>
+        Например, </p>
+    <pre>234.5677 | number:1</pre>
+    <p>Результатом работы данного фильтра будет число 234.6.
+        Числовой параметр после двоеточия указывает, сколько
+        останется чисел после запятой
+        (условной, так как в данном случае для разделения целой и дробной части
+        используется точка). <br>
+        Если числовой параметр больше количества разрядов после запятой, то при выводе число
+        дополняется нулями.</p>
+    <div class="row col-xs-3">
+        <h5>Example </h5>
+        <b>In:</b>
+        <p> 239.3 | number : 2</p>
+        <b>Out:</b>
+        <p>{{ 239.3 | number : 2}}</p>
+    </div>
+</div>
+<div class="container">
+    <h4 class="tit">Форматирование валюты</h4>
+    <p>Для форматирования валюты используется фильтр currency.
+        <br>Например: </p>
+    <pre>234.5 | currency</pre>
+    <p>По умолчанию фильтр добавляет значок доллара. <br>
+        Но доллары USA не везде используются, поэтому мы можем изменить символ валюты:</p>
+    <pre>234.5 | currency:'RUB'</pre>
+    <div class="row col-xs-3">
+        <h5>Example </h5>
+        <b>In:</b>
+        <p> 239.3 | currency : 'GRN'</p>
+        <b>Out:</b>
+        <p>{{ 239.3 | currency : 'GRN'}}</p>
+    </div>
+</div>
+<div class="container">
+    <h4 class="tit">Форматирование дат</h4>
+    <p>Чтобы вывести дату в определенном формате применяется фильтр date. <br>
+        В качестве выражения используется количеств миллисекунд, прошедших с начала эпохи Unix (то есть с 1 января 1970
+        года).
+        <br> Например: </p>
+    <pre>1405405678756 | date:'yyyy-MM-dd'</pre>
+    <div class="row col-xs-6">
+        <h5>Example </h5>
+        <b>In:</b>
+        <p> 1405405678756 | date:'yyyy-MM-dd'</p>
+        <b>Out:</b>
+        <p>{{ 1405405678756 | date:'yyyy-MM-dd'}}</p>
+    </div>
+</div>
+<div class="container" ng-controller="questionController">
+    <h4 class="tit">Фильтры orderBy</h4>
+    <p>Фильтр orderBy упорядочивает набор объектов по определенному свойству.</p>
+    <pre>answer in question | orderBy:sortparam</pre>
+    <div>Строка <b>$scope.sortparam='rate'</b>; <br>
+        указывает, что все объекты будут отсортированы
+        при выводе по значению свойства
+        rate в порядке возрастания. <br>
+        Если же нам надо поместить сначала те объекты,
+        у которых свойство rate больше, то
+        делаем обратный порядок: <b>$scope.sortparam='-rate'</b>;
+    </div>
+    <div class="row col-xs-6">
+        <h5>Example <b>orderBy</b></h5>
+        <b>In:</b>
+        <p> answer in question | orderBy:sortparam</p>
+        <b>Out:</b>
+        <div ng-repeat="quest in question | orderBy:sortparam" class="jumbotron text-justify">
+            <b>Text: </b>{{quest.text}} <br>
+            <b>Author: </b>{{quest.author}} <br>
+            <b>Date: </b>{{quest.date}} <br>
+            <b>Rate: </b>{{quest.rate}} <br>
+        </div>
+    </div>
+</div>
+<div class="container" ng-controller="questionController">
+    <h4 class="tit"> limitTo </h4>
+    <p>Теперь применим фильтр limitTo,
+        который ограничивает вывод
+        определенным количеством объектов:</p>
+    <pre>answer in question.answers | orderBy:sortparam | limitTo:2</pre>
+    <div class="row col-xs-6">
+        <h5>Example <b>orderBy</b></h5>
+        <b>In:</b>
+        <p> answer in question.answers | orderBy:sortparam | limitTo:2</p>
+        <b>Out:</b>
+        <div ng-repeat="quest in question | orderBy: sortparam | limitTo: 2" class="jumbotron text-justify">
+            <b>Text: </b>{{quest.text}} <br>
+            <b>Author: </b>{{quest.author}} <br>
+            <b>Date: </b>{{quest.date}} <br>
+            <b>Rate: </b>{{quest.rate}} <br>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-controller="questionController">
+    <h4 class="tit">Фильтр filter</h4>
+    <p>Фильтр filter задает параметры и значения фильтрации.
+        Посмотрим на примере. <br>
+        Возьмем проект, сделанный выше, и добавим в него привязку
+        двух выпадающих списков с применением фильтра filter:</p>
+    <pre>&lt;div ng-controller=&quot;QuestionController&quot;&gt;<br/>&lt;select ng-model=&quot;answer.author&quot;&gt;<br/>&lt;option ng-repeat=&quot;answer in question.answers&quot; &gt; answer.author &lt;/option&gt;<br/>&lt;/select&gt;<br/>&lt;select&gt;<br/>&lt;option ng-repeat=&quot;selected_answer in question.answers | filter:answer&quot;&gt; selected_answer.date &lt;/option&gt;<br/>&lt;/select&gt;<br/>&lt;/div&gt;</pre>
+    <p>Здесь первый элемент <b>select</b> привязывается к модели <b>answer.author</b>
+        через <b>ng-model</b>. Второй же осуществляет фильтрацию по выбранной модели.
+        При выборе автора ответа в первом списке во втором автоматически
+        будут отображаться даты всех его ответов.
+        Вывод в элемент <b>select</b> можно заменить выводом в div,
+        ul или другой элемент.</p>
+    <div>
+        <select >
+            <option ng-repeat="quest in question">
+                {{quest.author}}
+            </option>
+        </select>
+        <select>
+            <option ng-repeat="selected_answer in question | filter: quest">
+                {{selected_answer.date}}
+            </option>
+        </select>
+    </div>
+</div>
+
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_19.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_19.js" type="text/javascript"></script>
+</body>
+</html>
