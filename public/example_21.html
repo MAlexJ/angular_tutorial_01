@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Валидация формы</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h4 class="tit"> Валидация формы </h4>
+    <p>При создании нового объекта нередко могут возникать ошибки.
+        Но механизм валидации AngularJS позволяет нам
+        информировать пользователя об ошибках</p>
+    <div ng-controller="htmlController">
+        <p><textarea class="row col-xs-12" ng-model="htmlcode"></textarea></p>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <pre>&lt;!doctype html&gt;<br/>&lt;html ng-app=&quot;questApp&quot;&gt;<br/>&lt;head&gt;<br/>&lt;!-- содержание опущено для краткости --&gt;<br/> <br/>&lt;div ng-controller=&quot;AnswerController&quot;&gt;<br/>&lt;form name=&quot;answerForm&quot;&gt;<br/>&lt;fieldset&gt;<br/>&lt;p&gt;&lt;label for=&quot;answerText&quot;&gt;Текст ответа&lt;/label&gt;<br/>&lt;input id=&quot;answerText&quot; ng-model=&quot;answer.text&quot; required placeholder=&quot;Введите ответ&quot; /&gt;&lt;/p&gt;<br/>&lt;p&gt;&lt;label for=&quot;answerAuthor&quot;&gt;Автор ответа&lt;/label&gt;<br/>&lt;input id=&quot;answerAuthor&quot; ng-model=&quot;answer.author&quot; required placeholder=&quot;Введите автора&quot; /&gt;&lt;/p&gt;<br/>&lt;p&gt;&lt;label for=&quot;answerDate&quot;&gt;Дата ответа&lt;/label&gt;<br/>&lt;input id=&quot;answerDate&quot; ng-model=&quot;answer.date&quot; required  ng-pattern=&quot;/\d\d/\d\d/\d\d\d\d/&quot; placeholder=&quot;Введите дату&quot; /&gt;&lt;/p&gt;<br/>&lt;/fieldset&gt;<br/>&lt;button type=&quot;submit&quot; ng-click=&quot;save(answer, answerForm)&quot;&gt;Сохранить&lt;/button&gt;<br/>&lt;/form&gt;<br/>&lt;/div&gt;<br/>&lt;script src=&quot;js/lib/angular.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/app.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/controllers/QuestionController.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/controllers/AnswerController.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/filter.js&quot;&gt;&lt;/script&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;</pre>
+    <p>За работу с этой формой будет отвечать контроллер AnswerController,
+        который мы сейчас создадим и который мы подключаем внизу страницы.<br/>
+        Чтобы связать создаваемый объект с полями, используется директива ng-model.
+        Поле с атрибутом <b> ng-model="answer.text" </b>, таким образом,
+        будет отвечать за свойство text создаваемого формой объекта answer.
+        <br/><br/>
+        Так как нам надо, чтобы все поля перед отправкой были заполнены,
+        устанавливаем для каждого поля атрибут required, который,
+        в случае незаполнения поля, укажет пользователю,
+        что данное поле надо обязательно заполнить.
+        <br/><br/>
+        Для поля для ввода даты также устанавливаем атрибут
+        <b>  ng-pattern="/\d\d/\d\d/\d\d\d\d/"</b>, который указывает на формат вводимой даты.<br/>
+        Директива <b> ng-pattern </b> принимает регулярное выражение,
+        которому должен соответствовать вводимое значение.
+        То есть в данном случае регулярное выражение
+        соответствует, например, выражению 12/11/2013.
+        <br/><br/>
+        И, наконец, для кнопки отправки установлено событие нажатия:
+            <b>  ng-click="save(answer, answerForm)"</b>,
+        которое вызывает функцию save контроллера AnswerController,
+        передавая в нее в качестве параметров объект answer, создаваемый,
+        полями формы, и объект формы answerForm
+        (так как у элемента form атрибут name="answerForm").
+        <br/><br/>
+        Теперь создадим простенький контроллер AnswerController:</p>
+    <pre>questApp.controller(&#39;AnswerController&#39;, <br/>    function AnswerController($scope){<br/>        $scope.save = function (answer, answerForm){<br/>            if(answerForm.$valid){<br/>                // действия по сохранению<br/>                alert(answer.author + &quot;, ваш ответ сохранен&quot;);<br/>            }<br/>        };<br/>})</pre>
+    <p>С помощью выражения answerForm.$valid просматриваем, прошла форма валидацию или нет.</p>
+</div>
+<br>
+<br>
+<div class="container" ng-controller="AnswerController">
+    <form name="answerForm">
+        <fieldset>
+            <p><label for="answerText">Текст ответа</label>
+                <input id="answerText" class="form-control" ng-model="answer.text" required
+                       placeholder="Введите ответ"/></p>
+            <p><label for="answerAuthor">Автор ответа</label>
+                <input id="answerAuthor" class="form-control" ng-model="answer.author" required
+                       placeholder="Введите автора"/></p>
+            <p><label for="answerDate">Дата ответа</label>
+                <input id="answerDate" class="form-control" ng-model="answer.date" required
+                       ng-pattern="/\d\d/\d\d/\d\d\d\d/"
+                       placeholder="Введите дату"/></p>
+        </fieldset>
+        <button type="submit" class="btn" ng-click="save(answer, answerForm)">Сохранить</button>
+    </form>
+</div>
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<script src="js/lib/angular-sanitize.min.js"></script>
+<!-- Module -->
+<script src="js/module_21.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_21.js" type="text/javascript"></script>
+</body>
+</html>
