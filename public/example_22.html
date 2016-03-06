@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Работа со структурой DOM</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h4 class="tit">Работа со структурой DOM</h4>
+    <p>Подобно ряду многих других js-фреймворков и библиотек AngularJS позволяет работать со структорой
+        DOM html-страницы: то есть добавлять, удалять, изменять html-элементы.
+        Подобная функциональность реализована с помощью специального API,
+        которое во многом напоминает jQuery и называется <b> jqLite </b>(jQuery - lite). <br>
+        Данное API реализовано в виде методов, которые позволяют управлять html-элементом.
+        <br><br>Рассмотрим ряд методов.</p>
+    <h5 class="tit">Для навигации по html-странице мы можем применять ряд методов:</h5>
+    <ul>
+        <li><b>children(): </b> возвращает набор дочерних элементов</li>
+        <li><b>eq(index): </b> возвращает элемент по определенному индексу из коллекции элементов</li>
+        <li><b>find(tag): </b> получает все элементы по определенному тегу</li>
+        <li><b>next(): </b> возвращает следующий сестринский элемент</li>
+        <li><b>parent(): </b> возвращает родительский элемент</li>
+        <li><b>html(): </b> возвращает html-код элемента</li>
+        <li><b>text(): </b> возвращает текстовое содержимое элемента</li>
+    </ul>
+</div>
+<div class="container" ng-controller="QuestionController">
+    <h5><b>Example 1</b></h5>
+    <div class="quest">
+        <h3>{{question.text}}</h3>
+        <p>{{question.author}} </p>
+        <p><i>{{question.date}}</i></p>
+    </div>
+    <h3>Ответы</h3>
+    <div class="answers">
+        <div ng-repeat="answer in question.answers" class="answer">
+            <div class="vote">
+                <a class="vote-up" ng-click="voteUp(answer)"></a>
+                <span class="rate">{{answer.rate}}</span>
+                <a class="vote-down" ng-click="voteDown(answer)"></a>
+            </div>
+            <b>{{answer.text}}</b>
+            <p>{{answer.author}}</p>
+            <p><i>{{answer.date}}</i></p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <pre>// получаем элент body<br/>var elem = angular.element(document.querySelector(&quot;body&quot;));<br/>// выводим html элемента body<br/>console.log(elem.html());<br/>// получаем элемент с классом quest<br/>var quest = angular.element(document.querySelector(&quot;.quest&quot;));<br/>// получаем дочерний элемент h3<br/>var questHeader = quest.find(&#39;h3&#39;);<br/>// выводим его текст<br/>console.log(questHeader.text());</pre>
+
+    <p>Для конкретизации выборки используется метод javascript <b>document.querySelector(".quest")</b>,
+        который в качестве параметра принимает селектор.
+        В данном случае селекторы аналогичны тем, что используются в jquery.
+        Затем к найденному элементу применяется метод <b> angular.element()</b>,
+        который фактически создает обертку для найденного элемента.<br>
+        И после мы можем работать с полученным элементом с помощью методов <b>angularjs</b>.
+        <br>
+        <br>
+        Также обратите внимание, что свойство <b> questHeader.text()</b> будет содержать текст {{question.text}},
+        то есть текст до обработки его AngularJS.</p>
+</div>
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_22.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_22.js" type="text/javascript"></script>
+<script src="js/controllers/controller_20.js" type="text/javascript"></script>
+</body>
+</html>
