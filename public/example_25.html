@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Шаблоны директив</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h3 class="tit"></h3>
+    <p>В прошлых темах мы рассмотрели создание директив, в которых применялось API jqLite
+        с использованием метода <b>angular.element()</b> и т.д.
+        Но есть альтернативный подход, который заключается в использовании шаблонов.
+        Функциональность шаблонов построена вокруг свойства: <b>template</b>.
+        <br>
+        <br>
+        Используем шаблоны в директиве:
+    </p>
+    <pre>questApp.directive('answerList', function () html code</pre>
+    <p>В шаблонах используются все те же стандартные директивы и выражения AngularJS.</p>
+    <p>Чтобы упростить использования шаблонов, мы можем использовать внешние файлы для их хранения.
+        Создадим рядом с главной страницей index.html папку templates. <br>
+        Добавим в нее новый файл <b> answersTemplate.html </b> со следующим содержимым:
+    </p>
+    <pre>html code</pre>
+    <p>По сути это весь тот код, который ранее был заключен в свойстве <b>template</b>. Теперь изменим директиву
+        следующим образом:</p>
+    <pre>html code</pre>
+    <p>Теперь вместо свойства template используется свойство <b>templateUrl</b>, которое позволяет установить адрес
+        шаблона.</p>
+</div>
+<div class="container" ng-controller="myController">
+    <h5 class="tit">Example 1</h5>
+    <div>
+        <p>{{question.text}}</p>
+        <p> {{question.author}}</p>
+        <p> {{question.date}}</p>
+
+        <h3>Ответы</h3>
+        <div answer-List="question"></div>
+    </div>
+</div>
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_25.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_25.js" type="text/javascript"></script>
+<!-- Directive -->
+<script src="js/direct/directive_25.js" type="text/javascript"></script>
+</body>
+</html>

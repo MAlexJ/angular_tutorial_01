@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Создание своих директив</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h3 class="tit">Создание своих директив</h3>
+    <p> AngularJS содержит множество встроенных директив,
+        но их функциональности не всегда достаточно.<br>
+        Иногда необходимо применить более комплексное решение,
+        чем стандартные элементы html, использующие встроенные директивы.
+    </p>
+    <p>Создадим свою директиву. <br>
+        Для этого в папке js создадим новый
+        файл <b>answerList.js</b> со следующим содержанием:</p>
+
+    <pre> Html code</pre>
+    <p> Разберем директиву. <br>
+        Директива создается с помощью метода <b>Module.directive()</b>.<br>
+        В данном случае модулем является questApp, объявленный в другом файле.<br>
+        Данный метод принимает два параметра: </p>
+    <ul>
+        <li>название директивы</li>
+        <li>функцию директивы, которая сообственно и создает директиву.</li>
+    </ul>
+
+    <p> В качестве названия используется "answerList". Согласно соглашениям об именовании любая буква в верхнем регистре
+        расциенивается как начало нового слова, которое будет отделено от предыдущего дефисом. То есть для AngularJS
+        "answerList" будет представлять "answer-list" или "answer-List".</p>
+
+    <p>В функцию создания директивы передается три параметра:</p>
+
+    <ul>
+        <li><b>scope</b> - объект $scope, установленный в контроллере</li>
+        <li><b>element</b> - элемент, к которому применяется директива</li>
+        <li><b>attrs</b> - коллекция атрибутов в виде пары ключ-значение, где ключом является название атрибута</li>
+    </ul>
+    <p> Например, далее мы будем передавать объект $scope.question в эту директиву:</p>
+    <pre> html code </pre>
+    <p>В данном случае элементом является элемент div, а коллекция атрибутов будет содержать единcтвенный атрибут -
+        директиву answer-list. А question - это объект $scope.question</p>
+
+</div>
+
+<div class="container" ng-controller="myController">
+    <h5 class="tit">Example 1</h5>
+    <div class="quest">
+        <h3>{{question.text}}</h3>
+        <p>{{question.author}} </p>
+        <p><i>{{question.date}}</i></p>
+    </div>
+    <h3>Ответы</h3>
+    <div answer-list="question"></div>
+</div>
+
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_23.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_23.js" type="text/javascript"></script>
+<!-- Directive -->
+<script src="js/direct/answerList.js" type="text/javascript"></script>
+</body>
+</html>

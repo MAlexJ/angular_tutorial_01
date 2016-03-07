@@ -61,6 +61,62 @@
         Также обратите внимание, что свойство <b> questHeader.text()</b> будет содержать текст {{question.text}},
         то есть текст до обработки его AngularJS.</p>
 </div>
+<div class="container">
+    <h4 class="tit">Манипуляция элементами</h4>
+    <ul>
+        <li><b>addClass(name): </b> добавляет к элементу класс</li>
+        <li><b>attr(name) / attr(name, value): </b> получает значение value атрибута name элемента и устанавливает его
+        </li>
+        <li><b>css(name) / css(name, value): </b> получает значение value стиля name у элемента и устанавливает его</li>
+        <li><b>hasClass(name): </b> возвращает true, если элемент имеет класс name</li>
+        <li><b>prop(name) / prop(name, value): </b> получает значение value свойстваа name элемента и устанавливает его
+        </li>
+        <li><b>removeAttr(name): </b> удаляет у элемента атрибут</li>
+        <li><b>removeClass(name): </b> удаляет у элемента класс</li>
+        <li><b>text(value): </b> устанавливает текстовое значение у элемента</li>
+        <li><b>toggleClass(name): </b> переключает класс - класс name добавляется, а все ранее имевшиеся классы
+            удаляются
+        </li>
+        <li><b>val() / val(value): </b> получает значение атрибута value и устанавливает его значение</li>
+    </ul>
+    <p> Например, у нас есть следующий html-код:</p>
+    <pre>&lt;div class=&quot;quest&quot;&gt;<br/>  &lt;h3&gt;{{question.text}}&lt;/h3&gt;<br/>  &lt;p&gt;{{question.author}} &lt;/p&gt; &lt;p&gt;&lt;i&gt;{{question.date}}&lt;/i&gt;&lt;/p&gt;<br/>&lt;/div&gt;</pre>
+    <p>Изменим заголовок, применив к нему несколько методов:</p>
+    <pre>var quest = angular.element(document.querySelector(&quot;.quest&quot;));<br/>var questHeader = quest.find(&#39;h3&#39;);<br/>// изменим текст заголовка<br/>questHeader.text(&quot;Заголовок h3&quot;);<br/>// окрасим заголовок в те цвета, в которые он себя окрасит<br/>questHeader.css(&quot;color&quot;, &quot;blue&quot;);<br/>// добвим класс<br/>questHeader.addClass(&quot;header&quot;);</pre>
+</div>
+<div class="container">
+    <h4 class="tit">Создание и удаление элементов</h4>
+
+    <ul>
+        <li><b>angular.element(html): </b> создает определенный элемент с кодом html</li>
+        <li><b>after(elements): </b>добавляет элементы elements после элемента, на котором вызывается данный метод</li>
+        <li><b>append(elements): </b>добавляет элементы elements в качестве дочерних в конец элемента, на котором вызывается
+            данный метод</li>
+        <li><b>clone(): </b>создает копию элемента, для которого вызывается метод</li>
+        <li><b>prepend(elements): </b> добавляет элементы elements в качестве дочерних в начало элемента, на котором
+            вызывается данный метод
+        </li>
+        <li><b>remove(): </b>удаляет элемент</li>
+        <li><b>replaceWith(element): </b> заменяет элемент, на котором вызывается метод, другим элементом, который
+            передается в качестве параметра
+        </li>
+        <li><b>wrap(element): </b>обертывает элемент, на котором вызывается метод, новым элементом, передающимся в
+            качестве параметра
+        </li>
+    </ul>
+    <p>Применим ряд методов:</p>
+    <pre></pre>
+</div>
+<div class="container">
+    <h4 class="tit">Регистрация событий </h4>
+    <p>jqLite поддерживает регистрацию стандартных событий javascript. Для этого определены методы:</p>
+    <ul>
+        <li><b>on(events, handler): </b> регистрирует обработчик для одного или нескольких событий</li>
+        <li><b>off(events, handler): </b> удаляет ранее зарегистрированный обработчик для нескольких событий</li>
+        <li><b>triggerHandler(event):</b> вызывает обработчики для события</li>
+    </ul>
+    <pre></pre>
+</div>
 
 <!-- AngularJS -->
 <script src="js/lib/angular.min.js" type="text/javascript"></script>
