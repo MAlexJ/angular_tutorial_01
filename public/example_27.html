@@ -11,6 +11,38 @@
 
 <div class="container">
     <h3 class="tit">Использование сервисов</h3>
+    <p>Сервисы AngularJS представляют специальные объекты или функции, выполняющие некоторые общие для всего приложения
+        задачи. В AngularJS имеюся ряд встроенных сервисов, такие как <b>$http</b>, <b>$q</b> и ряд других. Кроме того,
+        имеется
+        возможность создавать свои сервисы для выполнения специфических задач.</p>
+    <h4>Использование сервисов</h4>
+    <p>Чтобы создать сервис, нам надо использовать метод factory.
+        Данный метод, как говорит название, представляет фабрику для создания сервиса.
+        Причем сервис реализует паттерн синглтон, что значит, что для всего приложения
+        будет создан только один экземпляр, и из любого места приложения будет идти
+        обращение к этому единичному объекту. Посмотрим на примере.
+        <br>
+        <br>
+        В прошлой главе была создана html-страница, которая получала из контроллера некоторые данные.
+        Однако, используя сервисы, мы можем определить данные в некотором внешнем источнике
+        и из него уже затем эти данные подгружать. Но для начала создадим свой сервис,
+        который будет определять данные для контроллера.
+        <br>
+        <br>
+        Для этого добавим в каталог приложения js файл dataService.js со следующим содержанием:</p>
+    <pre>questApp.factory(&#39;dataService&#39;, function(){<br/>    return{<br/>        question:{<br/>            text: &#39;Какой js-фреймворк лучше использовать?&#39;,<br/>            author: &#39;Иван Иванов&#39;,<br/>            date: &#39;20/10/2013&#39;,<br/>            answers: <br/>            [{<br/>                text: &#39;AngularJS!&#39;,<br/>                author: &#39;Вова Сидоров&#39;,<br/>                date: &#39;20/10/2013&#39;,<br/>                rate:2<br/>            },{<br/>                text: &#39;AngularJS лучше всех&#39;,<br/>                author: &#39;Олег Кузнецов&#39;,<br/>                date: &#39;21/10/2013&#39;,<br/>                rate:3<br/>            }]<br/>        }<br/>    };<br/>})</pre>
+
+
+    <p>Здесь у модуля questApp мы вызвали метод factory, который в качестве первого параметра принимает название сервиса
+        - 'dataService', а в качестве второго параметра служит функция, возвращающая объект question. То есть это те же
+        самые данные, которые ранее у нас были в контроллере. И тогда контроллер QuestionController, который будет
+        передавать данные на html-страницу, будет выглядеть следующим образом:</p>
+    <pre>questApp.controller(&#39;QuestionController&#39;, <br/>    function QuestionController($scope, dataService){<br/>     <br/>        $scope.question=dataService.question;<br/>     <br/>        $scope.voteUp = function (answer){<br/>            answer.rate++;<br/>        };<br/>        $scope.voteDown = function (answer){<br/>            answer.rate--;<br/>        };<br/>    }<br/>)</pre>
+
+
+<p>Создаваемый сервис dataService будет передаваться в качестве параметра в контроллер. Ну и стандартная уже html-страница:</p>
+
+<pre>&lt;!doctype html&gt;<br/>&lt;html ng-app=&quot;questApp&quot;&gt;<br/>&lt;head&gt;<br/>&lt;meta charset=&quot;utf-8&quot;&gt;<br/>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/mystyles.css&quot; /&gt;<br/>&lt;/head&gt;<br/>&lt;body&gt;<br/>&lt;div  ng-controller=&quot;QuestionController&quot;&gt;<br/>&lt;div class=&quot;quest&quot;&gt;<br/>&lt;h3&gt;{{question.text}}&lt;/h3&gt;<br/>&lt;p&gt;{{question.author}} &lt;/p&gt; &lt;p&gt;&lt;i&gt;{{question.date}}&lt;/i&gt;&lt;/p&gt;<br/>&lt;/div&gt;<br/>&lt;h3&gt;Ответы&lt;/h3&gt;<br/>&lt;div class=&quot;answers&quot;&gt;<br/>&lt;div ng-repeat=&quot;answer in question.answers | orderBy:sortparam&quot; class=&quot;answer&quot;&gt;<br/>&lt;div class=&quot;vote&quot;&gt;<br/>    &lt;a class=&quot;vote-up&quot; ng-click=&quot;voteUp(answer)&quot;&gt;&lt;/a&gt;<br/>    &lt;span class=&quot;rate&quot;&gt;{{answer.rate}}&lt;/span&gt;<br/>    &lt;a class=&quot;vote-down&quot; ng-click=&quot;voteDown(answer)&quot;&gt;&lt;/a&gt;<br/>&lt;/div&gt;<br/>&lt;b&gt;{{answer.text}}&lt;/b&gt;<br/>&lt;p&gt;{{answer.author}}&lt;/p&gt;<br/>&lt;p&gt;&lt;i&gt;{{answer.date}}&lt;/i&gt;&lt;/p&gt;<br/>&lt;/div&gt;<br/>&lt;/div&gt;<br/>&lt;/div&gt;<br/>&lt;script src=&quot;js/lib/angular.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/app.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/dataService.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/controllers/QuestionController.js&quot;&gt;&lt;/script&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;</pre>
 </div>
 
 <div class="container" ng-controller="myController">
@@ -32,7 +64,6 @@
         </div>
         <br>
     </div>
-
 </div>
 
 <footer class="modal-footer">End</footer>

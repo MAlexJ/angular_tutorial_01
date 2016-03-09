@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 02. Cервисы для работы с DOM</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h4 class="tit">Cервисы для работы с DOM</h4>
+    <p>В прошлой главе мы рассматривали разные методы работы с DOM с помощью специального API jqLite. Кроме ранее
+        расмотренных методов из этого API в AngularJS также определен ряд сервисов, которые представляют DOM API и
+        которые позволяют работать со структурой веб-страницы:</p>
+    <ul>
+        <li><b>$anchorScroll:</b> перемещает полосу прокрутки к определенной ссылке на странице</li>
+        <li><b>$document:</b> предоставляет объект jqLite, который содержит стандартный js-объек window.document</li>
+        <li><b>$interval:</b> представляет обертку вокруг функции window.setInterval</li>
+        <li><b>$location:</b> предоставляет доступ к URL</li>
+        <li><b>$window:</b> предоставляет стандартный javascript-объект window</li>
+    </ul>
+    <p>Используем сервисы $window и $document:</p>
+    <pre>&lt;!doctype html&gt;<br/>&lt;html ng-app=&quot;myApp&quot;&gt;<br/>&lt;head&gt;<br/>&lt;meta charset=&quot;utf-8&quot;&gt;<br/>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/mystyles.css&quot; /&gt;<br/>&lt;/head&gt;<br/>&lt;body&gt;<br/>&lt;div  ng-controller=&quot;DomController&quot;&gt;<br/>    &lt;button ng-click=&quot;getAlert(&#39;Hell to World&#39;)&quot;&gt;Не нажимай&lt;/button&gt;<br/>    &lt;button id=&quot;angButton&quot;&gt;Жми&lt;/button&gt;<br/>&lt;/div&gt;<br/> <br/>&lt;script src=&quot;js/lib/angular.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script&gt;<br/>var myApp = angular.module(&#39;myApp&#39;, []);<br/>myApp.controller(&quot;DomController&quot;, function($scope, $window, $document){<br/>     <br/>    $scope.getAlert = function (text){<br/>            $window.alert(text);<br/>    };<br/>    $document.find(&quot;button&quot;).on(&quot;click&quot;, function (event) {<br/>        $window.alert(event.target.innerText);<br/>    });<br/>});<br/>&lt;/script&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;</pre>
+
+    <p>При использовании сервисов <b>$window</b> и <b>$document</b> в контроллере устанавливается для них зависимость.
+        И затем мы можем использовать их функционал.
+        В данном случае просто выводим окно сообщения, которое доступно в браузере
+        через функцию <b>alert()</b>.
+    </p>
+
+    <p> Выражение $document.find("button").on("click", function (event)
+        установит для всех элементов button в качестве
+        обработчика события "onclick" функцию
+    </p>
+    <pre>function (event) {<br/>    $window.alert(event.target.innerText);<br/>}</pre>
+
+    <p>При этом для кнопки "Не нажимай" также установлен обработчик "getAlert('Hell to World')" для события ng-click.
+        Таким образом при нажатии на кнопку "Не нажимай" произойдет последовательный вызов двух обработчиков события
+        "onclick": окно alert c текстом "Hell to World" и второе с текстом "Не нажимай".</p>
+</div>
+<div class="container">
+    <h4 class="tit">Example 1</h4>
+    <div ng-controller="myController">
+        <button class="btn-default" ng-click="getAlert('Hello Word!!!')">Don't press</button>
+        <button class="btn-info" ng-click="getAlert('Press')"> Press</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/lib/angular.min.js"></script>
+
+<script type="text/javascript">
+    var myApp = angular.module('myApp',[]);
+
+    myApp.controller('myController',function($scope, $window){
+
+        $scope.getAlert = function (text){
+            $window.alert(text);
+        };
+    });
+
+</script>
+</body>
+</html>
