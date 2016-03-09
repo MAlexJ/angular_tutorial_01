@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Глава 02. Внедрение шаблонов</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-$END$
+<header class="modal-header"> header</header>
+<div class="container">
+    <h3 class="tit">Внедрение шаблонов</h3>
+    <p>AngularJS при создании директив поддерживает такую функциональность как <b>transclusion</b>,
+        которая представляет внедрение html-кода извне в шаблон. <br>
+        Например, возьмем директиву из прошлой темы и изменим ее:</p>
+    <pre>questApp.directive(&quot;answerList&quot;, function () {
+        <br/>    return {<br/>        restrict: &quot;A&quot;,
+        <br/>        templateUrl: &quot;templates/answersTemplate.html&quot;,<br/>        transclude: true<br/>    }<br/>})
+        ;</pre>
+
+    <p>Параметр <b>transclude: true </b>подключает функциональность внедрения.</p>
+    <p>Теперь изменим файл шаблона answersTemplate.html:</p>
+    <pre>&lt;div class=&quot;answers&quot;&gt;
+        <br/>&lt;div ng-transclude&gt;&lt;/div&gt;
+        <br/>&lt;div ng-repeat=&quot;answer in question.answers&quot; class=&quot;answer&quot;&gt;
+        <br/>&lt;div class=&quot;vote&quot;&gt;
+        <br/>    &lt;a class=&quot;vote-up&quot; ng-click=&quot;voteUp(answer)&quot;&gt;&lt;/a&gt;
+        <br/>    &lt;span class=&quot;rate&quot;&gt;{ answer.rate }&lt;/span&gt;
+        <br/>    &lt;a class=&quot;vote-down&quot; ng-click=&quot;voteDown(answer)&quot;&gt;&lt;/a&gt;
+        <br/>&lt;/div&gt;<br/>&lt;b&gt;{answer.text }&lt;/b&gt;
+        <br/>&lt;p&gt;{answer.author}&lt;/p&gt;
+        <br/>&lt;p&gt;&lt;i&gt;{answer.date}&lt;/i&gt;&lt;/p&gt;
+        br/>&lt;/div&gt;<br/>&lt;/div&gt;</pre>
+    <p>По сравнению с кодом из прошлой темы здесь был добавлен элемент </p>
+    <pre>&lt;div ng-transclude&gt;&lt;/div&gt;</pre>
+    <p>Директива <b>ng-transclude</b> указывает, что в этот элемент будет внедряться внешний код. </p>
+    <p>Этот код будет указан на главной странице index.html в элементе, к которому применяется директива директивы:</p>
+    <pre>&lt;!doctype html&gt;<br/>&lt;html ng-app=&quot;questApp&quot;&gt;<br/>&lt;head&gt;<br/>&lt;meta charset=&quot;utf-8&quot;&gt;<br/>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/mystyles.css&quot; /&gt;<br/>&lt;/head&gt;<br/>&lt;body&gt;<br/>&lt;div  ng-controller=&quot;QuestionController&quot;&gt;<br/>&lt;div class=&quot;quest&quot;&gt;<br/>&lt;h3&gt;{{question.text}}&lt;/h3&gt;<br/>&lt;p&gt;{{question.author}} &lt;/p&gt; &lt;p&gt;&lt;i&gt;{{question.date}}&lt;/i&gt;&lt;/p&gt;<br/>&lt;/div&gt;<br/>&lt;div answer-list&gt;&lt;h3&gt;Ответы&lt;/h3&gt;&lt;/div&gt;<br/>&lt;/div&gt;<br/> <br/>&lt;script src=&quot;js/lib/angular.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/app.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/controllers/QuestionController.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/answerList.js&quot;&gt;&lt;/script&gt;<br/>&lt;script src=&quot;js/filter.js&quot;&gt;&lt;/script&gt;<br/>&lt;script&gt;<br/>&lt;/script&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;</pre>
+
+    <p>Теперь в блок
+    <div ng-transclude></div>
+    будет внедряться элемент заголовка <h3>Ответы</h3>, которое определен внутри элемента, к которому применяется
+    директива.</p>
+    <br>
+
+</div>
+
+<div class="container" ng-controller="myController">
+    <h4 class="tit">Example 1</h4>
+    <div class="quest">
+        <h3>{{question.text}}</h3>
+        <p>{{question.author}} </p>
+        <p><i>{{question.date}}</i></p>
+    </div>
+
+    <div answer-list>
+        <h3>Ответы</h3>
+    </div>
+</div>
+<footer class="modal-footer">
+    footer
+</footer>
+
+<!-- AngularJS -->
+<script src="js/lib/angular.min.js" type="text/javascript"></script>
+<!-- Module -->
+<script src="js/module_26.js" type="text/javascript"></script>
+<!-- Controller -->
+<script src="js/controllers/controller_26.js" type="text/javascript"></script>
+<!-- Directive -->
+<script src="js/direct/directive_26.js" type="text/javascript"></script>
 </body>
 </html>
